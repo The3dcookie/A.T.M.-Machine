@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class AtmCardDetails : MonoBehaviour
 {
 
@@ -17,6 +18,8 @@ public class AtmCardDetails : MonoBehaviour
     public GameObject transferPage;
     public GameObject accountNumberPage;
     public GameObject thankYouPage;
+    public GameObject SignUpPage;
+    public GameObject newAccountDetailsPage;
 
     public bool ishomePageActive;
 
@@ -39,6 +42,19 @@ public class AtmCardDetails : MonoBehaviour
     public Text DepositNumText;
     public Text DepositConfText;
 
+    public InputField typeFirstNam;
+    public Text firstNameText;
+
+    public InputField typeLastNam;
+    public Text LastNameText;
+
+    public InputField typeInPin;
+    public Text pinText;
+
+    public InputField newAccountDetails;
+    public Text newAccountDetailsText;
+
+
     public Text balanceAmountText;
 
     public Text ThankYouText;
@@ -47,13 +63,103 @@ public class AtmCardDetails : MonoBehaviour
     public string accnt;
     public int pinnum;
 
-    public string accountNumber = "2105420352";
+    public string accountNumber;
+    public string newAcctNum;
     
-    public int pin = 1212;
-    
+    public int pin;
+    public string pintex;
+    public string accdetspag;
+
+
     public string firstName;
     public string lastName;
     public double balance;
+    public string randbal;
+
+
+    private void Start()
+    {
+
+      
+    }
+
+
+    public void SignUp()
+    {
+        SignUpPage.SetActive(true);
+
+    }
+    public void SignIn()
+    {
+        typeFirstNam.text= firstNameText.text;
+        
+        typeLastNam.text = LastNameText.text;
+
+        typeInPin.text = pinText.text;
+
+        newAccountDetails.text = newAccountDetailsText.text;
+
+        firstName = firstNameText.text;
+        lastName = LastNameText.text;
+        pintex = pinText.text;
+
+
+        accdetspag = newAccountDetailsText.text;
+
+
+
+
+
+
+}
+
+public void CreateAccount()
+    {
+
+        string acctStrt = "210";
+        int acctEnd = /*Random.Range(0000000, 9999999)*/5420352;
+        int newBalance = /*Random.Range(5000, 100000000)*/ 10000000;
+        newAcctNum = acctStrt + acctEnd.ToString();
+        randbal = newBalance.ToString();
+
+
+
+
+
+
+        PlayerPrefs.SetString("newAcctNum", newAcctNum + ";" + firstName + ";" + lastName + ";" + pintex + ";" + randbal + ";");
+
+
+
+        string userData = PlayerPrefs.GetString("newAcctNum");
+
+        string[] userDataList = userData.Split(';');
+        
+        string strtAcctNum = userDataList[0];
+        string strtFirstName = userDataList[1];
+        string strtLastName = userDataList[2];
+        string strtAcctPin = userDataList[3];
+        string strtBalance = userDataList[4];
+        Debug.Log(PlayerPrefs.GetString("newAcctNum"));
+        Debug.Log("Welcome " + strtLastName + " " + strtFirstName + " " + "Your new account number is " + strtAcctNum + "." + " Your Account Balance is " + strtBalance );
+        Debug.Log(strtLastName);
+
+        if (PlayerPrefs.GetString("newAcctNum") == null)
+        {
+            Debug.Log("Doesn't Exist");
+        }
+        else
+        {
+            Debug.Log("Exists");
+        }
+
+        newAccountDetails.text = "Welcome " + strtLastName + " " + strtFirstName + "\n" + "Your new account number is " + strtAcctNum + "\n" + " Your Account Balance is " + strtBalance + "\n" + "Click To Anywhere Proceed" + "\n" + "No Energy To Create a Proceed Button";
+
+        SignUpPage.SetActive(false);
+        newAccountDetailsPage.SetActive(true);
+
+       
+    }
 
 
 
@@ -62,98 +168,23 @@ public class AtmCardDetails : MonoBehaviour
     //AccountNumber
     public void AcctNumInput()
     {
-        ////string man = "2105420354";
-       
-        ////Debug.Log(acctNumText.text);
-        ////Debug.Log(typeAcctNum.text);
-        ////Debug.Log(man);
-        //if (typeAcctNum.text == accountNumber)
-        //{
+        string userData = PlayerPrefs.GetString("newAcctNum");
 
-        //    //Debug.Log("matching");
-        //    acctConfirmationText.text = "WELCOME BACK " + firstName;
+        string[] userDataList = userData.Split(';');
 
-        //    StartCoroutine(LoadingPinPage());
-        //}
-        //else
-        //{
-        //    //Debug.Log("NotMatching");
-        //    acctConfirmationText.text = "ACCOUNT NOT FOUND TRY AGAIN";
-        //}
+        string strtAcctNum = userDataList[0];
+        string strtFirstName = userDataList[1];
 
-
-        //List
-
-        List<string> AccountNumber = new List<string>();
-
-        AccountNumber.Add("2105420352");
-        AccountNumber.Add("2162520352");
-        AccountNumber.Add("2199220252");
-        AccountNumber.Add("2180080002");
-        AccountNumber.Add("2105663841");
-
-        List<int> AccountNumberPin = new List<int>();
-        AccountNumberPin.Add(1212);
-        AccountNumberPin.Add(5512);
-        AccountNumberPin.Add(8433);
-        AccountNumberPin.Add(5358);
-        AccountNumberPin.Add(5833);
-
-        List<string> AccountName = new List<string>();
-        AccountName.Add("Mr. Elvis Emezi");
-        AccountName.Add("Mrs. Isaac Idejoku");
-        AccountName.Add("Miss. Faustina Earnest");
-        AccountName.Add("Master. Alucard Aniston");
-        AccountName.Add("Dr. Bibeola Adejola");
-
-        List<double> AccountBalance = new List<double>();
-        AccountBalance.Add(1500000);
-        AccountBalance.Add(75286);
-        AccountBalance.Add(528466);
-        AccountBalance.Add(2200);
-        AccountBalance.Add(10000);
-
-        acctNumText.text = typeAcctNum.text;
-        accnt = typeAcctNum.text;
-
-        acctPinText.text = typePinNum.text;
-        //int pinasu = int.Parse(typePinNum.text);
-        //pinnum = pinasu;
-
-
-
-        //Account Number and Pin Check
-        if (AccountNumber.Contains(accnt) == true)
+        if (typeAcctNum.text == strtAcctNum)
         {
-            Debug.Log("worked");
-            int index = AccountNumber.IndexOf(accnt);
+            acctConfirmationText.text = "Welcome " + strtFirstName;
+
             StartCoroutine(LoadingPinPage());
-
-            
-
-            acctConfirmationText.text = "WELCOME BACK " + AccountName[index];
-
-            
-
-
-            if (AccountNumberPin[index] == pinnum)
-            {
-                Debug.Log(pinnum);
-                Debug.Log("Welcome " + AccountName[index] + " YOUR ACCOUNT BALANCE IS " + AccountBalance[index]);
-            }
-            else
-            {
-                Debug.Log(accnt);
-            }
-
         }
         else
         {
-            Debug.Log("NotMatching");
-            acctConfirmationText.text = "ACCOUNT NOT FOUND TRY AGAIN";
-
+            acctConfirmationText.text = "Account Not Found";
         }
-
     }
 
 
@@ -162,7 +193,7 @@ public class AtmCardDetails : MonoBehaviour
         
             
             
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         
 
         homePage.SetActive(false);
@@ -180,7 +211,23 @@ public class AtmCardDetails : MonoBehaviour
     public void PinNumberInput()
     {
 
-        
+        string userData = PlayerPrefs.GetString("newAcctNum");
+
+        string[] userDataList = userData.Split(';');
+        string strtFirstName = userDataList[1];
+        string strtLastName = userDataList[2];
+        string strtAcctPin = userDataList[3];
+
+
+        if(typePinNum.text == strtAcctPin)
+        {
+            pinConfirmationText.text = "So You're Really " + strtFirstName +" "+ strtLastName;
+            StartCoroutine(LoadingOptionsPage());
+        }
+        else
+        {
+            pinConfirmationText.text = "Incorrect Pin";
+        }
         //StartCoroutine(LoadingOptionsPage());
         //for (int i = 3; i != pin; i++)
         //{
@@ -193,20 +240,15 @@ public class AtmCardDetails : MonoBehaviour
     IEnumerator LoadingOptionsPage()
     {
 
-        acctPinText.text = typePinNum.text;
-        if (typePinNum.text == pin.ToString())
-        {
-            pinConfirmationText.text = "Correct Pin";
+          
+        yield return new WaitForSeconds(2f);
 
-            yield return new WaitForSeconds(2f);
-
-            inputPin.SetActive(false);
-            optionsPage.SetActive(true);
-        }
-        else
-        {
-            pinConfirmationText.text = "Incorrect Pin";
-        }
+          
+        inputPin.SetActive(false);
+           
+        optionsPage.SetActive(true);
+        
+    
 
 
 
@@ -302,6 +344,8 @@ public class AtmCardDetails : MonoBehaviour
         transferPage.SetActive(false);
         thankYouPage.SetActive(false);
         homePage.SetActive(true);
+        SignUpPage.SetActive(false);
+        newAccountDetailsPage.SetActive(false);
         accountNumberPage.SetActive(true);
         typePinNum.text = " ";
         typeAcctNum.text = " ";
@@ -370,6 +414,8 @@ public class AtmCardDetails : MonoBehaviour
     {
         BalanceAmount();
         ThankYouMessage();
+        SignIn();
+        //CreateAccount();
 
 
 
@@ -380,20 +426,22 @@ public class AtmCardDetails : MonoBehaviour
 
         //if (isParsable)
         //{
-        //    Debug.Log("matched");
+        //Debug.Log(newAccountDetailsText.text);
         //}
+
+        //Debug.Log(accdetspag);
 
         //if (int.Parse(typePinNum.text) == pinnum)
         //{
-        //    Debug.Log("matched");
+
+
+        //Debug.Log(lastName);
+        //Debug.Log(firstName);
         //}
 
-        Debug.Log(typePinNum.text);
-        Debug.Log(pinnum);
+        //Debug.Log(typePinNum.text);
+        //Debug.Log(pinnum);
 
     }
-    private void Start()
-    {
-       
-    }
+
 }
