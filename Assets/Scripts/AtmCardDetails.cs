@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 
 public class AtmCardDetails : MonoBehaviour
@@ -58,8 +57,6 @@ public class AtmCardDetails : MonoBehaviour
 
     public Text balanceAmountText;
 
-    public Text WelcInOpt;
-
     public Text ThankYouText;
 
 
@@ -76,7 +73,7 @@ public class AtmCardDetails : MonoBehaviour
 
     public string firstName;
     public string lastName;
-    private double balance;
+    public double balance;
     public string randbal;
 
 
@@ -91,25 +88,14 @@ public class AtmCardDetails : MonoBehaviour
     {
         SignUpPage.SetActive(true);
 
-        typeFirstNam.text = "";
-
-        typeLastNam.text = "";
-
-        typeInPin.text = "";
-
-
     }
     public void SignIn()
     {
-       
-
         typeFirstNam.text= firstNameText.text;
         
         typeLastNam.text = LastNameText.text;
 
         typeInPin.text = pinText.text;
-
-         
 
         newAccountDetails.text = newAccountDetailsText.text;
 
@@ -131,16 +117,21 @@ public void CreateAccount()
     {
 
         string acctStrt = "210";
-        int acctEnd = Random.Range(0000000, 9999999);
-        int newBalance = Random.Range(5000, 1000000);
+        int acctEnd = /*Random.Range(0000000, 9999999)*/5420352;
+        int newBalance = /*Random.Range(5000, 100000000)*/ 10000000;
         newAcctNum = acctStrt + acctEnd.ToString();
         randbal = newBalance.ToString();
 
-        PlayerPrefs.SetString(newAcctNum, newAcctNum + ";" + firstName + ";" + lastName + ";" + pintex + ";" + randbal + ";");
 
 
 
-        string userData = PlayerPrefs.GetString(newAcctNum);
+
+
+        PlayerPrefs.SetString("newAcctNum", newAcctNum + ";" + firstName + ";" + lastName + ";" + pintex + ";" + randbal + ";");
+
+
+
+        string userData = PlayerPrefs.GetString("newAcctNum");
 
         string[] userDataList = userData.Split(';');
         
@@ -149,16 +140,25 @@ public void CreateAccount()
         string strtLastName = userDataList[2];
         string strtAcctPin = userDataList[3];
         string strtBalance = userDataList[4];
+        Debug.Log(PlayerPrefs.GetString("newAcctNum"));
+        Debug.Log("Welcome " + strtLastName + " " + strtFirstName + " " + "Your new account number is " + strtAcctNum + "." + " Your Account Balance is " + strtBalance );
+        Debug.Log(strtLastName);
 
-        newAccountDetails.text = "Welcome " + strtLastName + " " + strtFirstName + "\n" + "Your new account number is " + strtAcctNum + "\n" + " Your Account Balance is " + strtBalance + "\n" + "Copy Your Details and Proceed";
+        if (PlayerPrefs.GetString("newAcctNum") == null)
+        {
+            Debug.Log("Doesn't Exist");
+        }
+        else
+        {
+            Debug.Log("Exists");
+        }
 
-        balance = double.Parse(strtBalance);
+        newAccountDetails.text = "Welcome " + strtLastName + " " + strtFirstName + "\n" + "Your new account number is " + strtAcctNum + "\n" + " Your Account Balance is " + strtBalance + "\n" + "Click To Anywhere Proceed" + "\n" + "No Energy To Create a Proceed Button";
 
         SignUpPage.SetActive(false);
         newAccountDetailsPage.SetActive(true);
-        PlayerPrefs.SetString("balance", balance.ToString());
 
-
+       
     }
 
 
@@ -168,36 +168,22 @@ public void CreateAccount()
     //AccountNumber
     public void AcctNumInput()
     {
-        if (!PlayerPrefs.HasKey(typeAcctNum.text) )
+        string userData = PlayerPrefs.GetString("newAcctNum");
+
+        string[] userDataList = userData.Split(';');
+
+        string strtAcctNum = userDataList[0];
+        string strtFirstName = userDataList[1];
+
+        if (typeAcctNum.text == strtAcctNum)
+        {
+            acctConfirmationText.text = "Welcome " + strtFirstName;
+
+            StartCoroutine(LoadingPinPage());
+        }
+        else
         {
             acctConfirmationText.text = "Account Not Found";
-        }
-        else if (PlayerPrefs.HasKey(typeAcctNum.text))
-        {
-            
-            string userData = PlayerPrefs.GetString(typeAcctNum.text);
-
-            string[] userDataList = userData.Split(';');
-
-            string strtAcctNum = userDataList[0];
-            string strtFirstName = userDataList[1];
-
-            
-
-            //Debug.Log(strtAcctNum);
-
-            if (typeAcctNum.text == strtAcctNum)
-            {
-                acctConfirmationText.text = "Welcome " + strtFirstName;
-
-                WelcInOpt.text = "Welcome " + strtFirstName + " Choose an Option";
-
-                StartCoroutine(LoadingPinPage());
-            }
-            else
-            {
-                acctConfirmationText.text = "Account Not Found";
-            }
         }
     }
 
@@ -225,7 +211,7 @@ public void CreateAccount()
     public void PinNumberInput()
     {
 
-        string userData = PlayerPrefs.GetString(typeAcctNum.text);
+        string userData = PlayerPrefs.GetString("newAcctNum");
 
         string[] userDataList = userData.Split(';');
         string strtFirstName = userDataList[1];
@@ -235,12 +221,12 @@ public void CreateAccount()
 
         if(typePinNum.text == strtAcctPin)
         {
-            pinConfirmationText.text =  "That's Correct Proceed";
+            pinConfirmationText.text = "So You're Really " + strtFirstName +" "+ strtLastName;
             StartCoroutine(LoadingOptionsPage());
         }
         else
         {
-            pinConfirmationText.text = "Wrong Try Again";
+            pinConfirmationText.text = "Incorrect Pin";
         }
         //StartCoroutine(LoadingOptionsPage());
         //for (int i = 3; i != pin; i++)
@@ -272,6 +258,18 @@ public void CreateAccount()
 
 
 
+    public void BalanceButton()
+    {
+        optionsPage.SetActive(false);
+        balanceAmountPage.SetActive(true);
+    }
+
+    public void WithdrawButton()
+    {
+        optionsPage.SetActive(false);
+        withdrawalPage.SetActive(true);
+        wtdrConfText.text = "HOW MUCH DO YOU WANT TO WITHDRAW?";
+    }
 
 
     public void WtdrNum()
@@ -279,133 +277,55 @@ public void CreateAccount()
         wtdrNumText.text = typeWtdrNum.text;
 
 
-
-
-            try
+        if (balance >= double.Parse(typeWtdrNum.text))
         {
+            
 
-                
-               
-                if (double.Parse(PlayerPrefs.GetString("balance")) >= double.Parse(typeWtdrNum.text))
-                {
+            double wtdrw = double.Parse(typeWtdrNum.text);
+            double acctbal = balance;
+            double newbalance = acctbal - wtdrw;
+            balance = newbalance;
 
-
-                
-                double wtdrw = double.Parse(typeWtdrNum.text);
-                
-                double acctbal = balance;
-                
-                double newbalance = acctbal - wtdrw;
-                   
-                balance = newbalance;
-
-                PlayerPrefs.SetString("balance", balance.ToString());
-
-                wtdrConfText.text = "YOUR CURRENT BALANCE IS " + newbalance.ToString();
-
-
-                }
-                else if (balance <= double.Parse(typeWtdrNum.text))
-                {
-                    wtdrConfText.text = "STOP YOU CANT WITHDRAW STOP TRYING TO STEAL";
-                    //Debug.Log("STOP YOU CANT WITHDRAW STOP TRYING TO STEAL");
-                }
-                else
-                {
-                    wtdrConfText.text = "INCORRECT INPUT";
-                    //Debug.Log("INCORRECT INPUT");
-                }
-
-            }
-        catch (FormatException)
+            //Debug.Log(typeWtdrNum.text);
+            Debug.Log("YOU CAN WITHDRAW");
+            Debug.Log("YOUR BALANCE IS " + newbalance);
+            wtdrConfText.text = "YOUR CURRENT BALANCE IS " + newbalance.ToString();
+        }
+        else if (balance <= double.Parse(typeWtdrNum.text)) 
         {
-            Debug.Log("Chilling till you finish typing");
-            // Return? Loop round? Whatever.
+            wtdrConfText.text = "STOP YOU CANT WITHDRAW STOP TRYING TO STEAL";
+            //Debug.Log("STOP YOU CANT WITHDRAW STOP TRYING TO STEAL");
+        }
+        else
+        {
+            wtdrConfText.text = "INCORRECT INPUT";
+            //Debug.Log("INCORRECT INPUT");
         }
 
 
-    }
-
-
-
-
-
-
-    public void Deposit()
-    {
-        PlayerPrefs.GetString("balance");
-
-        double balaftdep = double.Parse(typeDepositNum.text) + double.Parse(PlayerPrefs.GetString("balance"));
-
-        Debug.Log("stored balance is " + double.Parse(PlayerPrefs.GetString("balance")));
-        Debug.Log("typed deposit is " + double.Parse(typeDepositNum.text));
-       
-
-        balance = balaftdep;
-
-        PlayerPrefs.SetString("balance", balance.ToString());
-
-        DepositConfText.text = "DEPOSIT SUCCESSFUL YOUR CURRENT BALANCE IS " + balance.ToString();
-    }
-
-
-    public void BalanceAmount()
-    {
-
-
-        wtdrNumText.text = typeWtdrNum.text;
-
-
-
-
-        balanceAmountText.text = "YOUR BALANCE AMOUNT IS " + PlayerPrefs.GetString("balance");
-
-
-     
-
-    }
-    public void ThankYouMessage()
-    {
-        string userData = PlayerPrefs.GetString(typeAcctNum.text);
-
-        string[] userDataList = userData.Split(';');
-
-
-        string strtFirstName = userDataList[1];
-        string strtLastName = userDataList[2];
-
-        //Debug.Log(PlayerPrefs.GetString("newAcctNum"));
-
-        ThankYouText.text = "Thank You " + strtFirstName + " " + strtLastName + " FOR YOUR CONTINUOUS PATRONAGE";
-    }
-
-
-
-
-
-    public void BalanceButton()
-    {
-        optionsPage.SetActive(false);
-        balanceAmountPage.SetActive(true);
-        BalanceAmount();
-    }
-   
-    public void WithdrawButton()
-    {
-        optionsPage.SetActive(false);
-        withdrawalPage.SetActive(true);
-        wtdrConfText.text = "HOW MUCH DO YOU WANT TO WITHDRAW?";
-        typeWtdrNum.text = "";
-        WtdrNum();
     }
 
     public void DepositButton()
     {
         optionsPage.SetActive(false);
         depositPage.SetActive(true);
-        typeDepositNum.text = "";
-        DepositConfText.text = "HOW MUCH DO YOU WANT TO DEPOSIT?";
+    }
 
+    public void Deposit()
+    {
+        DepositNumText.text = typeDepositNum.text;
+
+        double depositholder = balance;
+        double deposited = double.Parse(typeDepositNum.text);
+
+        double balafdep = deposited + depositholder; 
+
+        balance = balafdep;
+
+        Debug.Log(typeDepositNum.text);
+        Debug.Log(balance);
+        Debug.Log(balafdep);
+        DepositConfText.text = "DEPOSIT SUCCESSFUL YOUR CURRENT BALANCE IS " + balance.ToString();
     }
 
     public void TransferButton()
@@ -462,7 +382,6 @@ public void CreateAccount()
     {
         balanceAmountPage.SetActive(false);
         thankYouPage.SetActive(true);
-        ThankYouMessage();
 
     }
 
@@ -474,20 +393,54 @@ public void CreateAccount()
 
 
 
+    //SUB MENUS LOCATED HERE
+    public void ThankYouMessage()
+    {
+        ThankYouText.text = "THANK YOU " + firstName + " FOR YOUR CONTINUOUS PATRONAGE";
+    }
 
+    public void BalanceAmount()
+    {
+        //balanceAmount.SetActive(true);
 
-
-
+        balanceAmountText.text = "YOUR BALANCE AMOUNT IS " + balance.ToString();
+        //Debug.Log(balanceAmountText.text);
+    }
 
 
 
     
     public void Update()
     {
-
+        BalanceAmount();
+        ThankYouMessage();
         SignIn();
-        //BalanceAmount();
+        //CreateAccount();
 
+
+
+        //acctPinText.text = typePinNum.text;
+        //int pinasu;
+        //bool isParsable = Int32.TryParse(firstName, pinasu);
+        //pinnum = pinasu;
+
+        //if (isParsable)
+        //{
+        //Debug.Log(newAccountDetailsText.text);
+        //}
+
+        //Debug.Log(accdetspag);
+
+        //if (int.Parse(typePinNum.text) == pinnum)
+        //{
+
+
+        //Debug.Log(lastName);
+        //Debug.Log(firstName);
+        //}
+
+        //Debug.Log(typePinNum.text);
+        //Debug.Log(pinnum);
 
     }
 
