@@ -237,7 +237,7 @@ public void CreateAccount()
         
             
             
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         
 
         homePage.SetActive(false);
@@ -265,12 +265,12 @@ public void CreateAccount()
 
         if(typePinNum.text == strtAcctPin)
         {
-            pinConfirmationText.text =  "That's Correct Proceed";
+            pinConfirmationText.text =  "Pin Confirmed";
             StartCoroutine(LoadingOptionsPage());
         }
         else
         {
-            pinConfirmationText.text = "Wrong Try Again";
+            pinConfirmationText.text = "Wrong Pin Try Again";
         }
 
     }
