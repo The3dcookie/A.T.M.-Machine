@@ -750,8 +750,8 @@ public void CreateAccount()
 
         SignIn();
         //BalanceAmount();
-        Debug.Log("Receiver " + PlayerPrefs.GetString(typeTrnsAccntNum.text));
-        Debug.Log("Sender " + PlayerPrefs.GetString(typeAcctNum.text));
+        //Debug.Log("Receiver " + PlayerPrefs.GetString(typeTrnsAccntNum.text));
+        //Debug.Log("Sender " + PlayerPrefs.GetString(typeAcctNum.text));
 
     }
 
