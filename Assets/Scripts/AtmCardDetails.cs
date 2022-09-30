@@ -255,22 +255,33 @@ public void CreateAccount()
     public void PinNumberInput()
     {
 
-        string userData = PlayerPrefs.GetString(typeAcctNum.text);
-
-        string[] userDataList = userData.Split(';');
-        string strtFirstName = userDataList[1];
-        string strtLastName = userDataList[2];
-        string strtAcctPin = userDataList[3];
 
 
-        if(typePinNum.text == strtAcctPin)
+        try
         {
-            pinConfirmationText.text =  "Pin Confirmed";
-            StartCoroutine(LoadingOptionsPage());
+
+            string userData = PlayerPrefs.GetString(typeAcctNum.text);
+
+            string[] userDataList = userData.Split(';');
+            string strtFirstName = userDataList[1];
+            string strtLastName = userDataList[2];
+            string strtAcctPin = userDataList[3];
+
+
+            if (typePinNum.text == strtAcctPin)
+            {
+                pinConfirmationText.text = "Pin Confirmed";
+                StartCoroutine(LoadingOptionsPage());
+            }
+            else
+            {
+                pinConfirmationText.text = "Wrong Pin Try Again";
+            }
+
         }
-        else
+        catch (IndexOutOfRangeException)
         {
-            pinConfirmationText.text = "Wrong Pin Try Again";
+            acctConfirmationText.text = "Incorrect Input";
         }
 
     }
