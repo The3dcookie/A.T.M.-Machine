@@ -673,6 +673,7 @@ public void CreateAccount()
         optionsPage.SetActive(false);
         transferPage.SetActive(true);
         TrnsAmntEnq.text = "HOW MUCH DO YOU WANT TO TRANSFER?";
+        TrnsAmntConfirmationText.text = "";
         typeTrnsAmnt.text = "" ;      
         typeTrnsAccntNum.text = "";
 

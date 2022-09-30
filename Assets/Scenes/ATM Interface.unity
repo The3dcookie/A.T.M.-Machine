@@ -1020,7 +1020,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -139.99997, y: 0}
+  m_AnchoredPosition: {x: -118, y: 0}
   m_SizeDelta: {x: 199.79999, y: 64.5571}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225474949
@@ -1069,7 +1069,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 842480532}
         m_TargetAssemblyTypeName: AtmCardDetails, Assembly-CSharp
-        m_MethodName: OptionsPage
+        m_MethodName: WtdrNum
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6c8e7dee6c2241b4ba0a357a70dde5db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6926e75fdac6ae84195fedfa14454964, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1712,7 +1712,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -139.99997, y: 0}
+  m_AnchoredPosition: {x: -120, y: 0}
   m_SizeDelta: {x: 199.79999, y: 64.5571}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &481304347
@@ -1761,7 +1761,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 842480532}
         m_TargetAssemblyTypeName: AtmCardDetails, Assembly-CSharp
-        m_MethodName: OptionsPage
+        m_MethodName: Deposit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1791,7 +1791,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6c8e7dee6c2241b4ba0a357a70dde5db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa066baec461b264eb2302ecde656abf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3916,7 +3916,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 842480532}
         m_TargetAssemblyTypeName: AtmCardDetails, Assembly-CSharp
-        m_MethodName: OptionsPage
+        m_MethodName: TransferPageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3946,7 +3946,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6c8e7dee6c2241b4ba0a357a70dde5db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20c497fd7a8d0284c80c9433dbb19d80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4080,7 +4080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.81, y: 0.24}
   m_AnchorMax: {x: 0.81, y: 0.24}
-  m_AnchoredPosition: {x: 4.1099854, y: -3.6099854}
+  m_AnchoredPosition: {x: 4.1099854, y: -3.609993}
   m_SizeDelta: {x: 226.18, y: 77.24539}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1100984406
@@ -6664,8 +6664,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -66.2}
-  m_SizeDelta: {x: 5214.215, y: 1276.2}
+  m_AnchoredPosition: {x: 0.0000076294, y: -83}
+  m_SizeDelta: {x: 6398.6, y: 1566.0862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1736923265
 MonoBehaviour:
@@ -6697,7 +6697,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
@@ -7261,7 +7261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.18, y: 0.24}
   m_AnchorMax: {x: 0.18, y: 0.24}
-  m_AnchoredPosition: {x: 4.5, y: -4}
+  m_AnchoredPosition: {x: 4.5, y: -4.0000076}
   m_SizeDelta: {x: 199.79999, y: 64.5571}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809550538
