@@ -515,11 +515,11 @@ public void CreateAccount()
 
 
 
-            if(typeTrnsAccntNum.text != typeAcctNum.text)
+            if (typeTrnsAccntNum.text != typeAcctNum.text)
             {
                 if (PlayerPrefs.HasKey(typeTrnsAccntNum.text))
             {
-                Debug.Log("Account Exists");
+                //Debug.Log("Account Exists");
 
                 //Receiver Account Details
 
@@ -591,10 +591,11 @@ public void CreateAccount()
                     StartCoroutine(LoadingTransferInProgress());
 
                 }
-                else if (double.Parse(strtBalance) <= double.Parse(typeWtdrNum.text))
+                else if (double.Parse(strtBalance) < double.Parse(typeTrnsAmnt.text))
                 {
                     TrnsAmntConfirmationText.text = "INSUFFICIENT FUNDS";
                     //Debug.Log("STOP YOU CANT WITHDRAW STOP TRYING TO STEAL");
+                    
                 }
                 else
                 {
