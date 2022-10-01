@@ -515,7 +515,9 @@ public void CreateAccount()
 
 
 
-            if (PlayerPrefs.HasKey(typeTrnsAccntNum.text))
+            if(typeTrnsAccntNum.text != typeAcctNum.text)
+            {
+                if (PlayerPrefs.HasKey(typeTrnsAccntNum.text))
             {
                 Debug.Log("Account Exists");
 
@@ -604,6 +606,11 @@ public void CreateAccount()
             else if (!PlayerPrefs.HasKey(typeTrnsAccntNum.text))
             {
                 TrnsAmntEnq.text = "Account Not Found";
+            }
+            }
+            else
+            {
+                TrnsAmntEnq.text = "INVALID ACCOUNT DETAILS \n CANT TRANSFER TO YOURSELF";
             }
 
 
